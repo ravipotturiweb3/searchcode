@@ -1,0 +1,23 @@
+name: deploy_dev
+on:
+  workflow_dispatch:
+
+jobs:
+  manual_deploy:
+    runs-on: dev
+    steps: 
+      - uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 16.0
+      - name: Verify Node.js version
+        run: node --version
+      - run: npm install
+      - run: CI= npm run build
+      - run: cp /var/www/html/crack-it/htaccess ./build/.htaccess
+      - run: rm -r /var/www/html/crack-it/build_live/*.html && rm -r /var/www/html/crack-it/*.json
+      - run: cp -r build/* /var/www/html/crack-it/build_live/
+        env:
+          CI: true

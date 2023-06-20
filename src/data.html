@@ -1,0 +1,380 @@
+StudentAffiliationSbt:
+<p>StudentFirstName:{StudentAffiliationSbt.StudentFirstName}</p><br/>
+<p>StudentLastName:{StudentAffiliationSbt.StudentLastName}</p><br/>
+<p>Gender:{StudentAffiliationSbt.Gender}</p><br/>
+<p>DateOfBirth:{StudentAffiliationSbt.DateOfBirth}</p><br/>
+<p>BloodGroup:{StudentAffiliationSbt.BloodGroup}</p><br/>
+<p>SoulID:{StudentAffiliationSbt.SoulID}</p><br/>
+<p>SBTtype:{StudentAffiliationSbt.SBTtype}</p><br/>
+<p>SBTId:{StudentAffiliationSbt.SBTId}</p><br/>
+<p>walletaddress:{StudentAffiliationSbt.walletaddress}</p><br/>
+<p>IssuedDate:{StudentAffiliationSbt.IssuedDate}</p><br/>
+<p>IssuedBy:{StudentAffiliationSbt.IssuedBy}</p><br/>
+<p>IssuedSchoolName:{StudentAffiliationSbt.IssuedSchoolName}</p><br/>
+<p>SchoolAdmissionID:{StudentAffiliationSbt.SchoolAdmissionID}</p><br/>
+<p>SchoolSoulID:{StudentAffiliationSbt.SchoolSoulID}</p><br/>
+<p>ValidityStartDate:{StudentAffiliationSbt.ValidityStartDate}</p><br/>
+<p>ValidityEndDate:{StudentAffiliationSbt.ValidityEndDate}</p><br/>
+
+
+StudentSoulIDSbt:
+<p>StudentFirstName:{StudentSoulIDSbt.StudentFirstName}</p>
+<p>StudentLastName:{StudentSoulIDSbt.StudentLastName}</p>
+<p>Gender:{StudentSoulIDSbt.Gender}</p>
+<p>DateOfBirth:{StudentSoulIDSbt.DateOfBirth}</p>
+<p>BloodGroup:{StudentSoulIDSbt.BloodGroup}</p>
+<p>SoulID:{StudentSoulIDSbt.SoulID}</p>
+<p>SBTtype:{StudentSoulIDSbt.SBTtype}</p>
+<p>SBTId:{StudentSoulIDSbt.SBTId}</p>
+<p>walletaddress:{StudentSoulIDSbt.walletaddress}</p>
+<p>IssuedDate:{StudentSoulIDSbt.IssuedDate}</p>
+<p>IssuedBy:{StudentSoulIDSbt.IssuedBy}</p>
+<p>City:{StudentSoulIDSbt.City}</p>
+<p>Country:{StudentSoulIDSbt.Country}</p>
+
+SchoolSoulSbt
+<p>SchoolName:{SchoolSoulSbt.SchoolName}</p>
+<p>SoulID:{SchoolSoulSbt.SoulID}</p>
+<p>SBTId:{SchoolSoulSbt.SBTId}</p>
+<p>Syllabus:{SchoolSoulSbt.Syllabus}</p>
+<p>SBTtype:{SchoolSoulSbt.SBTtype}</p>
+<p>DateofIncorportation:{SchoolSoulSbt.DateofIncorportation}</p>
+<p>walletaddress:{SchoolSoulSbt.walletaddress}</p>
+<p>IssuedDate:{SchoolSoulSbt.IssuedDate}</p>
+<p>IssuedBy:{SchoolSoulSbt.IssuedBy}</p>
+<p>Area:{SchoolSoulSbt.Area}</p>
+<p>Country:{SchoolSoulSbt.Country}</p>
+<p>Pincode:{SchoolSoulSbt.Pincode}</p>
+<p>Website:{SchoolSoulSbt.Website}</p>
+<p>RegistrationNumber:{SchoolSoulSbt.RegistrationNumber}</p>
+<p>AffilitedTo:{SchoolSoulSbt.AffilitedTo}</p>
+<p>City:{SchoolSoulSbt.City}</p>
+
+
+
+[
+{
+StudentFirstName:{StudentSoulIDSbt.StudentFirstName},
+StudentLastName:{StudentSoulIDSbt.StudentLastName},
+Gender:{StudentSoulIDSbt.Gender},
+DateOfBirth:{StudentSoulIDSbt.DateOfBirth},
+BloodGroup:{StudentSoulIDSbt.BloodGroup},
+SoulID:{StudentSoulIDSbt.SoulID},
+SBTtype:{StudentSoulIDSbt.SBTtype},
+SBTId:{StudentSoulIDSbt.SBTId},
+walletaddress:{StudentSoulIDSbt.walletaddress},
+IssuedDate:{StudentSoulIDSbt.IssuedDate},
+IssuedBy:{StudentSoulIDSbt.IssuedBy},
+City:{StudentSoulIDSbt.City},
+Country:{StudentSoulIDSbt.Country}
+}
+
+]
+
+
+
+
+import React, { useState } from 'react';
+import SchoolSoulSbt from './sbts/SchoolSoulSbt'
+import StudentAffiliationSbt from "./sbts/StudentAffilicationSbt"
+import StudentSoulIDSbt from './sbts/StudentSoulIDSbt'
+
+function Main() {
+  const [selectedContract, setSelectedContract] = useState(null);
+  const [contractData, setContractData] = useState(null);
+  const [searchId, setSearchId] = useState("");
+
+  const handleSelectChange = async (event) => {
+    const selectedValue = event.target.value;
+    setSelectedContract(selectedValue);
+  };
+  
+  const handleInputChange = (event) => {
+    const searchValue = event.target.value;
+    setSearchId(searchValue);
+  };
+
+  const handleSearchClick = async () => {
+    let contract;
+
+    if (selectedContract === 'SchoolSoulSbt') {
+      contract = SchoolSoulSbt;
+    } else if (selectedContract === 'StudentAffiliationSbt') {
+      contract = StudentAffiliationSbt;
+    } else if (selectedContract === 'StudentSoulIDSbt') {
+      contract = StudentSoulIDSbt;
+    }
+
+    if (contract) {
+        const result = await contract(searchId);
+        const fields = Object.keys(result);
+        setContractData({ fields, data: result });
+      }
+  };
+
+//   const getFields = (data) => {
+//     let fields = [];
+
+//     if (selectedContract === 'SchoolSoulSbt') {
+//       fields = [`SchoolName:{SchoolSoulSbt.SchoolName}`, 'SoulID', 'SBTId', 'Syllabus', 'SBTtype', 'DateofIncorportation', 'walletaddress', 'IssuedDate', 'IssuedBy','Area','Country','Pincode','Website','RegistrationNumber','AffilitedTo','City'];
+//     } else if (selectedContract === 'StudentAffiliationSbt') {
+//       fields = ['StudentFirstName', 'StudentLastName', 'Gender', 'DateOfBirth', 'BloodGroup', 'SoulID', 'SBTtype','SBTId','walletaddress','IssuedDate','IssuedBy','IssuedSchoolName','SchoolAdmissionID','SchoolSoulID','ValidityStartDate','ValidityEndDate'];
+//     } else if (selectedContract === 'StudentSoulIDSbt') {
+//       fields = ['StudentFirstName', 'StudentLastName', 'Gender', 'DateOfBirth', 'BloodGroup','SoulID','SBTtype','SBTId','walletaddress','IssuedDate','IssuedBy','City','Country'];
+//     }
+
+//     return fields;
+//   }
+
+return (
+    <div>
+      <select onChange={handleSelectChange}>
+        <option>select</option>
+        <option value="SchoolSoulSbt">SchoolSoulSbt</option>
+        <option value="StudentAffiliationSbt">StudentAffiliationSbt</option>
+        <option value="StudentSoulIDSbt">StudentSoulIDSbt</option>
+      </select>
+      {selectedContract && (
+        <div>
+          <input type="text" value={searchId} onChange={handleInputChange} />
+          <button onClick={handleSearchClick}>Search</button>
+        </div>
+      )}
+  
+      {Object.entries(contractData).map(([key, value]) => (
+        <React.Fragment key={key}>
+          {key === "SchoolName" && selectedContract === "SchoolSoulSbt" && (
+            <p>
+              School Name: {value}
+            </p>
+          )}
+          {key === "SoulID" && (
+            <p>
+              Soul ID: {value}
+            </p>
+          )}
+          {key === "SBTId" && (
+            <p>
+              SBT ID: {value}
+            </p>
+          )}
+          {key === "Syllabus" && selectedContract === "SchoolSoulSbt" && (
+            <p>
+              Syllabus: {value}
+            </p>
+          )}
+          {key === "SBTtype" && (
+          <p>
+            SBT type: {value}
+          </p>
+        )}
+        {key === "DateofIncorportation" && selectedContract === "SchoolSoulSbt" && (
+          <p>
+            Date of Incorporation: {value}
+          </p>
+        )}
+        {key === "walletaddress" && selectedContract === "SchoolSoulSbt" (
+          <p>
+            Wallet Address: {value}
+          </p>
+        )}
+        {key === "IssuedDate"&& selectedContract === "SchoolSoulSbt" (
+          <p>
+            Issued Date: {value}
+          </p>
+        )}
+        {key === "IssuedBy" && selectedContract === "SchoolSoulSbt" (
+          <p>
+            Issued By: {value}
+          </p>
+        )}
+        {key === "Area" && selectedContract === "SchoolSoulSbt" && (
+          <p>
+            Area: {value}
+          </p>
+        )}
+        {key === "Country" && selectedContract === "SchoolSoulSbt" && (
+          <p>
+            Country: {value}
+          </p>
+        )}
+        {key === "Pincode" && selectedContract === "SchoolSoulSbt" && (
+          <p>
+            Pincode: {value}
+          </p>
+        )}
+        {key === "Website" && selectedContract === "SchoolSoulSbt" && (
+          <p>
+            Website: {value}
+          </p>
+        )}
+        {key === "RegistrationNumber" && selectedContract === "SchoolSoulSbt" && (
+          <p>
+            Registration Number: {value}
+          </p>
+        )}
+        {key === "AffilitedTo" && selectedContract === "SchoolSoulSbt" && (
+          <p>
+            Affilited To: {value}
+          </p>
+        )}
+        {key === "City" && selectedContract === "SchoolSoulSbt" (
+          <p>
+            City: {value}
+          </p>
+        )}
+        
+
+        {key === "StudentFirstName" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            First Name: {value}
+          </p>
+        )}
+        {key === "StudentLastName" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            Last Name: {value}
+          </p>
+        )}
+        {key === "Gender" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            Gender: {value}
+          </p>
+        )}
+        {key === "DateOfBirth" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            DateOfBirth: {value}
+            </p>
+        )}
+             {key === "BloodGroup" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            BloodGroup: {value}
+            </p>
+        )}
+             {key === "SoulID" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            SoulID: {value}
+            </p>
+        )}
+             {key === "SBTtype" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            SBTtype: {value}
+            </p>
+        )}
+             {key === "SBTId" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            SBTId: {value}
+            </p>
+        )}
+             {key === "walletaddress" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            walletaddress: {value}
+            </p>
+        )}
+             {key === "IssuedDate" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            IssuedDate: {value}
+            </p>
+        )}
+             {key === "IssuedBy" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            IssuedBy: {value}
+            </p>
+        )}
+             {key === "IssuedSchoolName" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            IssuedSchoolName: {value}
+            </p>
+        )}
+             {key === "SchoolAdmissionID" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            SchoolAdmissionID: {value}
+            </p>
+        )}
+             {key === "SchoolSoulID" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            SchoolSoulID: {value}
+            </p>
+        )}
+             {key === "ValidityStartDate" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            ValidityStartDate: {value}
+            </p>
+        )}
+             {key === "ValidityEndDate" && selectedContract === "StudentAffiliationSbt" && (
+          <p>
+            ValidityEndDate: {value}
+            </p>
+        )}
+             {key === "StudentFirstName" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            StudentFirstName: {value}
+            </p>
+        )}
+                  {key === "StudentLastName" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            StudentLastName: {value}
+            </p>
+        )}
+                  {key === "Gender" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            Gender: {value}
+            </p>
+        )}
+                  {key === "DateOfBirth" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            DateOfBirth: {value}
+            </p>
+        )}
+                  {key === "BloodGroup" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            BloodGroup: {value}
+            </p>
+        )}
+                  {key === "SoulID" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            SoulID: {value}
+            </p>
+        )}
+                  {key === "SBTtype" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            SBTtype: {value}
+            </p>
+        )}
+                  {key === "SBTId" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            SBTId: {value}
+            </p>
+        )}
+                  {key === "walletaddress" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            walletaddress: {value}
+            </p>
+        )}
+                  {key === "IssuedDate" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            IssuedDate: {value}
+            </p>
+        )}
+                  {key === "IssuedBy" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            IssuedBy: {value}
+            </p>
+        )}
+                  {key === "City" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            City: {value}
+            </p>
+        )}
+                  {key === "Country" && selectedContract === "StudentSoulIDSbt" && (
+          <p>
+            Country: {value}
+            </p>
+        )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+  
+}
+
+export default Main;

@@ -1,0 +1,23 @@
+name: deploy_live
+on:
+  workflow_dispatch:
+
+jobs:
+  manual_deploy:
+    runs-on: Prasastiweb3
+    steps: 
+      - uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: v16.0.0
+      - name: Verify Node.js version
+        run: node --version
+      - run: npm install
+      - run: CI= npm run build
+      - run: cp /var/www/crack-it/htaccess ./build/.htaccess
+      - run: rm -r /var/www/crack-it/build_live/*.html && rm -r /var/www/crack-it/build_live/*.json
+      - run: cp -r build/* /var/www/crack-it/build_live/
+        env:
+          CI: true

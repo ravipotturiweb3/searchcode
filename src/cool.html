@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <article class="cta">
+	<img src={issuedSbtInfo.ImgUrl} alt="award">
+	<div class="cta__text-column">
+        <p>Hash: <a href={studentSbtInfo.transactionHashes} target="_blank" rel="noopener noreferrer">{studentSbtInfo.transactionHashes}</a></p>
+        <p class="label">SBT ID: {studentSbtInfo.SBTId}</p><br/>
+      <p class="label">First Name: {studentSbtInfo.StudentFirstName}</p><br/>
+	  <p class="label">LastName: {studentSbtInfo.StudentLastName}</p><br/>
+      <p class="label">Award : {studentSbtInfo.AwardName}</p><br/>
+      <p class="label">Awards sub category:{studentSbtInfo.AwardSubCategory}</p><br/>
+      <p class="label">Sbt type : {studentSbtInfo.SbtType}</p><br/>
+      <p class="label">Soul Id : {studentSbtInfo.SoulId}</p><br/>
+      <p class="label">Parent soulid : {studentSbtInfo.ParentSoulId}</p><br/>
+      <p class="label">DOB : {studentSbtInfo.DOB}</p><br/>
+      <p class="label">EmailAddress: {studentSbtInfo.emailAddress}</p><br/>
+      <p class="label">Walletaddress: {studentSbtInfo.walletaddress}</p><br/>
+      <p class="label">IssuedDate: {issuedSbtInfo.IssuedDate}</p><br/>
+      <p class="label">IssuedBy: {issuedSbtInfo.IssuedBy}</p><br/>
+      <p class="label">IssuedSchool: {issuedSbtInfo.IssuedSchool}</p><br/>
+      <p class="label">SchoolAdmissionID: {issuedSbtInfo.SchoolAdmissionID}</p><br/>
+      <p class="label">SchoolSoulID: {issuedSbtInfo.SchoolSoulID}</p>
+		<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio">Read all about it</a>
+	</div>
+</article>
+</body>
+</html>
